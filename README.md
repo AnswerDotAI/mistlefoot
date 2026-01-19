@@ -36,11 +36,12 @@ markdown('**aa**', ExtendedHtmlRenderer)
 
 ``` python
 def render_md(md): return HTML(markdown(md, ExtendedHtmlRenderer))
+def  print_md(md):       print(markdown(md, ExtendedHtmlRenderer))
 ```
 
 ``` python
 markdown_text = """
-# My Document {#intro .important}
+#### My Document {#intro .important}
 
 This is **H~2~O** and ==highlighted text==.
 
@@ -53,7 +54,7 @@ Check out https://fast.ai :rocket:
 render_md(markdown_text)
 ```
 
-<h1 id="intro" class="important">My Document</h1>
+<h4 id="intro" class="important">My Document</h4>
 <p>This is <strong>H<sub>2</sub>O</strong> and <mark>highlighted text</mark>.</p>
 <p>Check out <a href="https://fast.ai">https://fast.ai</a> 🚀</p>
 <ul>
@@ -92,21 +93,11 @@ render_md("""Here's a claim[^1].
 
 **Heading attributes:**
 
-``` html
-<style>
-.important { background-color: yellow; font-weight: bold; }
-</style>
-```
-
-<style>
-.important { background-color: yellow; font-weight: bold; }
-</style>
-
 ``` python
-render_md('# Section {#my-id .important data-level=\"1\"}')
+print_md('#### Section {#my-id .important data-level=\"1\"}')
 ```
 
-<h1 id="my-id" class="important" data-level="1">Section</h1>
+    <h4 id="my-id" class="important" data-level="1">Section</h4>
 
 ## Contributing
 
