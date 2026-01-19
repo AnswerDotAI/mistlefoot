@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "mistlefoot"
+  site-url: "https://AnswerDotAI.github.io/mistlefoot"
+  description: "Extended markdown features for mistletoe, including subscript, superscript, highlighting, emojis, footnotes, task lists, and more."
+  repo-branch: main
+  repo-url: "https://github.com/AnswerDotAI/mistlefoot"
