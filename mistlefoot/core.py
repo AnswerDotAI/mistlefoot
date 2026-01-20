@@ -24,7 +24,6 @@ class Superscript(SpanToken):
     parse_inner = False
     def __init__(self, match): self.content = match.group(1)
 
-# %% ../nbs/00_core.ipynb #505a5884
 class Highlight(SpanToken):
     pattern = re.compile(r"==([^=]+)==")
     parse_inner = True
@@ -80,7 +79,6 @@ class Strikethrough(SpanToken):
     parse_inner = True
     def __init__(self, match): pass
 
-# %% ../nbs/00_core.ipynb #902a9940
 class AutoLink(SpanToken):
     pattern = re.compile(r'(?<!\()(https?://[^\s<>]+)')
     parse_inner = False
