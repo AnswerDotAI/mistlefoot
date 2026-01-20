@@ -89,8 +89,8 @@ class AutoLink(SpanToken):
 
 # %% ../nbs/00_core.ipynb #be9bbac9
 class ExtendedHtmlRenderer(HtmlRenderer):
-    def __init__(self): 
-        super().__init__(Subscript, Superscript, Highlight, Emoji, FootnoteRef, FootnoteEntry, Strikethrough, AutoLink)
+    def __init__(self, *args, **kwargs): 
+        super().__init__(Subscript, Superscript, Highlight, Emoji, FootnoteRef, FootnoteEntry, Strikethrough, AutoLink, *args, **kwargs)
         self.footnotes = {}
     def render_subscript(self, token): return f'<sub>{token.content}</sub>'
     def render_superscript(self, token): return f'<sup>{token.content}</sup>'
