@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = []
+dependencies = ["fastcore","mistletoe"]
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/mistlefoot"
@@ -29,6 +29,9 @@ version = {attr = "mistlefoot.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["mistlefoot"]
+
+[project.optional-dependencies]
+dev = ["ipython"]
 
 [tool.nbdev]
 custom_sidebar = false
