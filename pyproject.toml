@@ -3,19 +3,16 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="mistlefoot"
+name = "mistlefoot"
 dynamic = ["version"]
 description = "Extended markdown features for mistletoe, including subscript, superscript, highlighting, emojis, footnotes, task lists, and more."
 readme = "README.md"
-requires-python=">=3.10"
+requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "Jeremy Howard", email = "github@jhoward.fastmail.fm"}]
 keywords = ['nbdev', 'jupyter', 'notebook', 'python']
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-]
-dependencies = ["fastcore","mistletoe"]
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['fastcore', 'mistletoe']
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/mistlefoot"
@@ -24,14 +21,14 @@ Documentation = "https://AnswerDotAI.github.io/mistlefoot"
 [project.entry-points.nbdev]
 mistlefoot = "mistlefoot._modidx:d"
 
+[project.optional-dependencies]
+dev = ['ipython']
+
 [tool.setuptools.dynamic]
 version = {attr = "mistlefoot.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["mistlefoot"]
-
-[project.optional-dependencies]
-dev = ["ipython"]
 
 [tool.nbdev]
 custom_sidebar = false
