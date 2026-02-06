@@ -83,7 +83,7 @@ class AutoLink(SpanToken):
     pattern = re.compile(r'(?<!\()(https?://[^\s<>]+)')
     parse_inner = False
     precedence = 6
-    def __init__(self, match): self.url = match.group(1)
+    def __init__(self, match): self.target = match.group(1)
 
 # %% ../nbs/00_core.ipynb #be9bbac9
 class ExtendedHtmlRenderer(HtmlRenderer):
@@ -95,7 +95,7 @@ class ExtendedHtmlRenderer(HtmlRenderer):
     def render_highlight(self, token): return f'<mark>{self.render_inner(token)}</mark>'
     def render_strikethrough(self, token): return f'<del>{self.render_inner(token)}</del>'
     def render_emoji(self, token): return emoji_map.get(f':{token.name}:', f':{token.name}:')
-    def render_auto_link(self, token): return f'<a href="{token.url}">{token.url}</a>'
+    def render_auto_link(self, token): return f'<a href="{token.target}">{token.target}</a>'
     def render_footnote_ref(self, token): 
         return f'<sup><a href="#fn-{token.label}" id="fnref-{token.label}">[{token.label}]</a></sup>'
     def render_footnote_entry(self, token):
