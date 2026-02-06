@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.3
+
+### Bugs Squashed
+
+- Rename AutoLink.url to target to avoid conflict breaking angle bracket links ([#3](https://github.com/AnswerDotAI/mistlefoot/issues/3))
+
+
 ## 0.0.2
 
 ### Bugs Squashed
