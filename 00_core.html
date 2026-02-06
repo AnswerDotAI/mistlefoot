@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>core – mistlefoot</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="mistlefoot">
+<meta property="og:description" content="Extended markdown features for mistletoe, including subscript, superscript, highlighting, emojis, footnotes, task lists, and more.">
+<meta property="og:site_name" content="mistlefoot">
+<meta name="twitter:title" content="mistlefoot">
+<meta name="twitter:description" content="Extended markdown features for mistletoe, including subscript, superscript, highlighting, emojis, footnotes, task lists, and more.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">mistlefoot</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00_core.html">Tests</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">mistlefoot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_core.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tests</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#highlight" id="toc-highlight" class="nav-link active" data-scroll-target="#highlight">Highlight</a></li>
+  <li><a href="#superscript" id="toc-superscript" class="nav-link" data-scroll-target="#superscript">Superscript</a></li>
+  <li><a href="#subscript" id="toc-subscript" class="nav-link" data-scroll-target="#subscript">Subscript</a></li>
+  <li><a href="#emoji" id="toc-emoji" class="nav-link" data-scroll-target="#emoji">Emoji</a></li>
+  <li><a href="#footnoteref" id="toc-footnoteref" class="nav-link" data-scroll-target="#footnoteref">FootnoteRef</a></li>
+  <li><a href="#footnoteentry" id="toc-footnoteentry" class="nav-link" data-scroll-target="#footnoteentry">FootnoteEntry</a></li>
+  <li><a href="#autolink" id="toc-autolink" class="nav-link" data-scroll-target="#autolink">AutoLink</a></li>
+  <li><a href="#strikethrough" id="toc-strikethrough" class="nav-link" data-scroll-target="#strikethrough">Strikethrough</a></li>
+  <li><a href="#extendedhtmlrenderer" id="toc-extendedhtmlrenderer" class="nav-link" data-scroll-target="#extendedhtmlrenderer">ExtendedHtmlRenderer</a></li>
+  <li><a href="#parse_attrs" id="toc-parse_attrs" class="nav-link" data-scroll-target="#parse_attrs">parse_attrs</a></li>
+  <li><a href="#extendedhtmlrenderer.render_heading" id="toc-extendedhtmlrenderer.render_heading" class="nav-link" data-scroll-target="#extendedhtmlrenderer.render_heading">ExtendedHtmlRenderer.render_heading</a></li>
+  <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">Tests</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/AnswerDotAI/mistlefoot/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="00_core.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 id="intro" class="important title display-7">My Heading</h1></header>
+
+
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="1a428611" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML,Markdown,display</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mistletoe <span class="im">import</span> markdown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L27" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="highlight" class="level3">
+<h3 class="anchored" data-anchor-id="highlight">Highlight</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Highlight(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="superscript" class="level3">
+<h3 class="anchored" data-anchor-id="superscript">Superscript</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Superscript(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L17" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subscript" class="level3">
+<h3 class="anchored" data-anchor-id="subscript">Subscript</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Subscript(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L50" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="emoji" class="level3">
+<h3 class="anchored" data-anchor-id="emoji">Emoji</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Emoji(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L71" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="footnoteref" class="level3">
+<h3 class="anchored" data-anchor-id="footnoteref">FootnoteRef</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> FootnoteRef(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L56" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="footnoteentry" class="level3">
+<h3 class="anchored" data-anchor-id="footnoteentry">FootnoteEntry</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> FootnoteEntry(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base class for block-level tokens. Recursively parse inner tokens.</em></p>
+<p>Naming conventions:</p>
+<pre><code>* lines denotes a list of (possibly unparsed) input lines, and is
+  commonly used as the argument name for constructors.
+
+* BlockToken.children is a list with all the inner tokens (thus if
+  a token has children attribute, it is not a leaf node; if a token
+  calls span_token.tokenize_inner, it is the boundary between
+  span-level tokens and block-level tokens);
+
+* BlockToken.start takes a line from the document as argument, and
+  returns a boolean representing whether that line marks the start
+  of the current token. Every subclass of BlockToken must define a
+  start function (see block_tokenizer.tokenize).
+
+* BlockToken.read takes the rest of the lines in the document as an
+  iterator (including the start line), and consumes all the lines
+  that should be read into this token.
+
+  Default to stop at an empty line.
+
+  Note that BlockToken.read does not have to return a list of lines.
+  Because the return value of this function will be directly
+  passed into the token constructor, we can return any relevant
+  parsing information, sometimes even ready-made tokens,
+  into the constructor. See block_tokenizer.tokenize.
+
+  If BlockToken.read returns None, the read result is ignored,
+  but the token class is responsible for resetting the iterator
+  to a previous state. See block_tokenizer.FileWrapper.get_pos,
+  block_tokenizer.FileWrapper.set_pos.</code></pre>
+<p>Attributes: children (list): inner tokens. line_number (int): starting line (1-based).</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L82" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="autolink" class="level3">
+<h3 class="anchored" data-anchor-id="autolink">AutoLink</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AutoLink(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L77" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="strikethrough" class="level3">
+<h3 class="anchored" data-anchor-id="strikethrough">Strikethrough</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Strikethrough(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    match</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base token class.</em></p>
+<p><code>Token</code> has two subclasses:</p>
+<ul>
+<li><p><code>block_token.BlockToken</code>, for all block level tokens. A block level token is text which occupies the entire horizontal width of the “page” and is offset for the surrounding sibling block with line breaks.</p></li>
+<li><p><code>span_token.SpanToken</code>, for all span-level (or inline-level) tokens. A span-level token appears inside the flow of the text lines without any surrounding line break.</p></li>
+</ul>
+<p>Custom <code>__repr__</code> methods in subclasses: The default <code>__repr__</code> implementation outputs the number of child tokens (from the attribute <code>children</code>) if applicable, and the <code>content</code> attribute if applicable. If any additional attributes should be included in the <code>__repr__</code> output, this can be specified by setting the class attribute <code>repr_attributes</code> to a tuple containing the attribute names to be output.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L89" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="extendedhtmlrenderer" class="level3">
+<h3 class="anchored" data-anchor-id="extendedhtmlrenderer">ExtendedHtmlRenderer</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ExtendedHtmlRenderer(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    args:VAR_POSITIONAL, kwargs:VAR_KEYWORD</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>HTML renderer class.</em></p>
+<p>See mistletoe.base_renderer module for more info.</p>
+<div id="9d33b142" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_md(md): <span class="cf">return</span> HTML(markdown(md, ExtendedHtmlRenderer))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="120a9a9c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"Here's a sentence with a footnote[^1] and another[^2].</span><span class="ch">\n\n</span><span class="st">[^1]: First note.</span><span class="ch">\n</span><span class="st">[^2]: Second note."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p>Here's a sentence with a footnote<sup><a href="#fn-1" id="fnref-1">[1]</a></sup> and another<sup><a href="#fn-2" id="fnref-2">[2]</a></sup>.</p>
+<div id="fn-1" class="footnote"><sup>1</sup> First note. <a href="#fnref-1">↩</a></div>
+
+<div id="fn-2" class="footnote"><sup>2</sup> Second note. <a href="#fnref-2">↩</a></div>
+
+</div>
+</div>
+<div id="c43e7296" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"~~strikethrough~~ and **bold ~~strikethrough~~**"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p><del>strikethrough</del> and <strong>bold <del>strikethrough</del></strong></p>
+</div>
+</div>
+<div id="9412d328" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"Check out https://fast.ai and http://example.com for more info!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p>Check out <a href="https://fast.ai">https://fast.ai</a> and <a href="http://example.com">http://example.com</a> for more info!</p>
+</div>
+</div>
+<div id="2d92fa9f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"Here's a sentence with a link to &lt;http://www.example.org&gt;."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p>Here's a sentence with a link to <a href="http://www.example.org">http://www.example.org</a>.</p>
+</div>
+</div>
+<div id="533f987b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"""Here's some code:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">https://fast.ai</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">~~strikethrough~~</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">:smile:</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="st">H~2~O</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">And outside the block: https://fast.ai ~~strikethrough~~ :smile: H~2~O"""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p>Here's some code:</p>
+<pre><code>https://fast.ai
+~~strikethrough~~
+:smile:
+H~2~O
+</code></pre>
+<p>And outside the block: <a href="https://fast.ai">https://fast.ai</a> <del>strikethrough</del> 😊 H<sub>2</sub>O</p>
+</div>
+</div>
+<div id="c3782283" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"H~2~O and E=mc^2^"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p>H<sub>2</sub>O and E=mc<sup>2</sup></p>
+</div>
+</div>
+<div id="87ade508" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>test_md2 <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">- [x] Completed task</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">- [ ] Incomplete task</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">- Regular item"""</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>render_md(test_md2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<ul>
+<li><input type="checkbox" disabled="" checked=""> Completed task</li>
+
+<li><input type="checkbox" disabled=""> Incomplete task</li>
+
+<li>Regular item</li>
+
+</ul>
+</div>
+</div>
+<div id="f92c143a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"==highlighted== and :smile: :rocket: :heart:"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<p><mark>highlighted</mark> and 😊 🚀 ❤️</p>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L113" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="parse_attrs" class="level3">
+<h3 class="anchored" data-anchor-id="parse_attrs">parse_attrs</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_attrs(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    text</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bac176e9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>parse_attrs(<span class="st">'{#my-id .class1 .class2 width="50%" height="200 px"}'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>' id="my-id" class="class1 class2" width="50%" height="200 px"'</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/mistlefoot/blob/main/mistlefoot/core.py#L130" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="extendedhtmlrenderer.render_heading" class="level3">
+<h3 class="anchored" data-anchor-id="extendedhtmlrenderer.render_heading">ExtendedHtmlRenderer.render_heading</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_heading(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    token</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fee85bc0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.important</span> { <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">yellow</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span> }</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<style>
+.important { background-color: yellow; font-weight: bold; }
+</style>
+</div>
+</div>
+<div id="1f048e64" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>render_md(<span class="st">"# My Heading {#intro .important}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+
+</div>
+</div>
+</section>
+<section id="tests" class="level2">
+<h2 class="anchored" data-anchor-id="tests">Tests</h2>
+<div id="9bfddd61" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.test <span class="im">import</span> test_eq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c1875b2c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> ExtendedHtmlRenderer() <span class="im">as</span> renderer:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">':sm ile:'</span>)), <span class="st">'&lt;p&gt;:sm ile:&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">':unknown:'</span>)), <span class="st">'&lt;p&gt;:unknown:&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">':smile:'</span>)), <span class="st">'&lt;p&gt;😊&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'H~ 2~O'</span>)), <span class="st">'&lt;p&gt;H~ 2~O&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'H~2~O'</span>)), <span class="st">'&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'E=mc^ 2^'</span>)), <span class="st">'&lt;p&gt;E=mc^ 2^&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'E=mc^2^'</span>)), <span class="st">'&lt;p&gt;E=mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'~~no space~~'</span>)), <span class="st">'&lt;p&gt;&lt;del&gt;no space&lt;/del&gt;&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'**~~nested~~**'</span>)), <span class="st">'&lt;p&gt;&lt;strong&gt;&lt;del&gt;nested&lt;/del&gt;&lt;/strong&gt;&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'==~~double~~=='</span>)), <span class="st">'&lt;p&gt;&lt;mark&gt;&lt;del&gt;double&lt;/del&gt;&lt;/mark&gt;&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'```</span><span class="ch">\n</span><span class="st">https://fast.ai</span><span class="ch">\n</span><span class="st">```'</span>))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">'href'</span> <span class="kw">not</span> <span class="kw">in</span> html <span class="kw">and</span> <span class="st">'https://fast.ai'</span> <span class="kw">in</span> html</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'https://fast.ai'</span>))</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">'&lt;a href="https://fast.ai"&gt;https://fast.ai&lt;/a&gt;'</span> <span class="kw">in</span> html</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'[link](https://fast.ai)'</span>))</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> html.count(<span class="st">'href'</span>) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'[^1]'</span>)), <span class="st">'&lt;p&gt;&lt;sup&gt;&lt;a href="#fn-1" id="fnref-1"&gt;[1]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'- [x] done</span><span class="ch">\n</span><span class="st">- [ ] todo</span><span class="ch">\n</span><span class="st">- regular'</span>))</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">'checked'</span> <span class="kw">in</span> html <span class="kw">and</span> html.count(<span class="st">'checkbox'</span>) <span class="op">==</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="0cfc7620" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> ExtendedHtmlRenderer() <span class="im">as</span> renderer:</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'# Heading {#intro}'</span>)), <span class="st">'&lt;h1 id="intro"&gt;Heading&lt;/h1&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'## Test {.important}'</span>)), <span class="st">'&lt;h2 class="important"&gt;Test&lt;/h2&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'### Multi {.c1 .c2}'</span>)), <span class="st">'&lt;h3 class="c1 c2"&gt;Multi&lt;/h3&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'# Full {#id1 .cls data-level="1"}'</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">'id="id1"'</span> <span class="kw">in</span> html <span class="kw">and</span> <span class="st">'class="cls"'</span> <span class="kw">in</span> html <span class="kw">and</span> <span class="st">'data-level="1"'</span> <span class="kw">in</span> html</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'# Plain'</span>)), <span class="st">'&lt;h1&gt;Plain&lt;/h1&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'## Empty </span><span class="sc">{}</span><span class="st">'</span>)), <span class="st">'&lt;h2&gt;Empty </span><span class="sc">{}</span><span class="st">&lt;/h2&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> renderer.render(Document(<span class="st">'# Order {.first #myid .second key="val"}'</span>))</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">'id="myid"'</span> <span class="kw">in</span> html <span class="kw">and</span> <span class="st">'class="first second"'</span> <span class="kw">in</span> html <span class="kw">and</span> <span class="st">'key="val"'</span> <span class="kw">in</span> html</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    test_eq(renderer.render(Document(<span class="st">'# Spaces {data-value="hello world"}'</span>)), <span class="st">'&lt;h1 data-value="hello world"&gt;Spaces&lt;/h1&gt;</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/AnswerDotAI\.github\.io\/mistlefoot");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/AnswerDotAI/mistlefoot/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

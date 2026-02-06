@@ -1,0 +1,82 @@
+[
+  {
+    "objectID": "00_core.html",
+    "href": "00_core.html",
+    "title": "My Heading",
+    "section": "",
+    "text": "from IPython.display import HTML,Markdown,display\nfrom mistletoe import markdown\nsource",
+    "crumbs": [
+      "Tests"
+    ]
+  },
+  {
+    "objectID": "00_core.html#tests",
+    "href": "00_core.html#tests",
+    "title": "My Heading",
+    "section": "Tests",
+    "text": "Tests\n\nfrom fastcore.test import test_eq\n\n\nwith ExtendedHtmlRenderer() as renderer:\n    test_eq(renderer.render(Document(':sm ile:')), '&lt;p&gt;:sm ile:&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document(':unknown:')), '&lt;p&gt;:unknown:&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document(':smile:')), '&lt;p&gt;😊&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('H~ 2~O')), '&lt;p&gt;H~ 2~O&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('H~2~O')), '&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('E=mc^ 2^')), '&lt;p&gt;E=mc^ 2^&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('E=mc^2^')), '&lt;p&gt;E=mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('~~no space~~')), '&lt;p&gt;&lt;del&gt;no space&lt;/del&gt;&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('**~~nested~~**')), '&lt;p&gt;&lt;strong&gt;&lt;del&gt;nested&lt;/del&gt;&lt;/strong&gt;&lt;/p&gt;\\n')\n    test_eq(renderer.render(Document('==~~double~~==')), '&lt;p&gt;&lt;mark&gt;&lt;del&gt;double&lt;/del&gt;&lt;/mark&gt;&lt;/p&gt;\\n')\n    html = renderer.render(Document('```\\nhttps://fast.ai\\n```'))\n    assert 'href' not in html and 'https://fast.ai' in html\n    html = renderer.render(Document('https://fast.ai'))\n    assert '&lt;a href=\"https://fast.ai\"&gt;https://fast.ai&lt;/a&gt;' in html\n    html = renderer.render(Document('[link](https://fast.ai)'))\n    assert html.count('href') == 1\n    test_eq(renderer.render(Document('[^1]')), '&lt;p&gt;&lt;sup&gt;&lt;a href=\"#fn-1\" id=\"fnref-1\"&gt;[1]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;\\n')\n    html = renderer.render(Document('- [x] done\\n- [ ] todo\\n- regular'))\n    assert 'checked' in html and html.count('checkbox') == 2\n\n\nwith ExtendedHtmlRenderer() as renderer:\n    test_eq(renderer.render(Document('# Heading {#intro}')), '&lt;h1 id=\"intro\"&gt;Heading&lt;/h1&gt;\\n')\n    test_eq(renderer.render(Document('## Test {.important}')), '&lt;h2 class=\"important\"&gt;Test&lt;/h2&gt;\\n')\n    test_eq(renderer.render(Document('### Multi {.c1 .c2}')), '&lt;h3 class=\"c1 c2\"&gt;Multi&lt;/h3&gt;\\n')\n    html = renderer.render(Document('# Full {#id1 .cls data-level=\"1\"}'))\n    assert 'id=\"id1\"' in html and 'class=\"cls\"' in html and 'data-level=\"1\"' in html\n    test_eq(renderer.render(Document('# Plain')), '&lt;h1&gt;Plain&lt;/h1&gt;\\n')\n    test_eq(renderer.render(Document('## Empty {}')), '&lt;h2&gt;Empty {}&lt;/h2&gt;\\n')\n    html = renderer.render(Document('# Order {.first #myid .second key=\"val\"}'))\n    assert 'id=\"myid\"' in html and 'class=\"first second\"' in html and 'key=\"val\"' in html\n    test_eq(renderer.render(Document('# Spaces {data-value=\"hello world\"}')), '&lt;h1 data-value=\"hello world\"&gt;Spaces&lt;/h1&gt;\\n')",
+    "crumbs": [
+      "Tests"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "mistlefoot",
+    "section": "",
+    "text": "pip install mistlefoot",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "mistlefoot",
+    "section": "",
+    "text": "pip install mistlefoot",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#features",
+    "href": "index.html#features",
+    "title": "mistlefoot",
+    "section": "Features",
+    "text": "Features\n\nSubscript & Superscript: H~2~O and E=mc^2^\nHighlighting: ==marked text==\nStrikethrough: ~~deleted text~~\nEmojis: :smile: :rocket: :heart: (50+ supported)\nAuto-linking: URLs automatically become clickable links\nFootnotes: Reference[^1] with definitions\nTask lists: GitHub-style checkboxes\nHeading attributes: Add IDs, classes, and custom attributes to headings",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "mistlefoot",
+    "section": "Usage",
+    "text": "Usage\n\nfrom IPython.display import HTML,Markdown,display\nfrom mistletoe import markdown\n\n\nmarkdown('**aa**', ExtendedHtmlRenderer)\n\n'&lt;p&gt;&lt;strong&gt;aa&lt;/strong&gt;&lt;/p&gt;\\n'\n\n\n\ndef render_md(md): return HTML(markdown(md, ExtendedHtmlRenderer))\ndef  print_md(md):       print(markdown(md, ExtendedHtmlRenderer))\n\n\nmarkdown_text = \"\"\"\n#### My Document {#intro .important}\n\nThis is **H~2~O** and ==highlighted text==.\n\nCheck out https://fast.ai :rocket:\n\n- [x] Done\n- [ ] Todo\n\"\"\"\n\nrender_md(markdown_text)\n\nMy Document\nThis is H2O and highlighted text.\nCheck out https://fast.ai 🚀\n\n Done\n\n Todo",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "mistlefoot",
+    "section": "Examples",
+    "text": "Examples\nScientific notation:\n\nrender_md(\"H~2~O and E=mc^2^\")\n\nH2O and E=mc2\n\n\nEmojis:\n\nrender_md(\"Great work! :tada: :100:\")\n\nGreat work! 🎉 💯\n\n\nFootnotes:\n\nrender_md(\"\"\"Here's a claim[^1].\n\n[^1]: This is the supporting reference.\"\"\")\n\nHere's a claim[1].\n1 This is the supporting reference. ↩\n\n\n\nHeading attributes:\n\nprint_md('#### Section {#my-id .important data-level=\\\"1\\\"}')\n\n&lt;h4 id=\"my-id\" class=\"important\" data-level=\"1\"&gt;Section&lt;/h4&gt;",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "mistlefoot",
+    "section": "Contributing",
+    "text": "Contributing\nBy Jeremy Howard. Copyright ©️ fast.ai 2026 onwards. Contributions welcome.",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  }
+]
