@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.4
+
+### Bugs Squashed
+
+- Fix single period rendering ([#4](https://github.com/AnswerDotAI/mistlefoot/issues/4))
+
+
 ## 0.0.3
 
 ### Bugs Squashed
