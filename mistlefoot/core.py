@@ -11,7 +11,7 @@ import re
 from mistletoe import Document
 from mistletoe.html_renderer import HtmlRenderer
 from mistletoe.span_token import SpanToken
-from mistletoe.block_token import BlockToken
+from mistletoe.block_token import BlockToken, ListItem, List
 
 # %% ../nbs/00_core.ipynb #0d4a8105
 class Subscript(SpanToken):
@@ -90,6 +90,8 @@ class ExtendedHtmlRenderer(HtmlRenderer):
     def __init__(self, *args, **kwargs): 
         super().__init__(Subscript, Superscript, Highlight, Emoji, FootnoteRef, FootnoteEntry, Strikethrough, AutoLink, *args, **kwargs)
         self.footnotes = {}
+        ListItem.pattern = re.compile(r'( {0,3})(\d{1,9}[.)]|[+\-*])($|\s+)')
+        List.pattern = re.compile(r' {0,3}(?:\d{1,9}[.)]|[+\-*])(?:[ \t]*$|[ \t]+)')
     def render_subscript(self, token): return f'<sub>{token.content}</sub>'
     def render_superscript(self, token): return f'<sup>{token.content}</sup>'
     def render_highlight(self, token): return f'<mark>{self.render_inner(token)}</mark>'
@@ -97,9 +99,11 @@ class ExtendedHtmlRenderer(HtmlRenderer):
     def render_emoji(self, token): return emoji_map.get(f':{token.name}:', f':{token.name}:')
     def render_auto_link(self, token): return f'<a href="{token.target}">{token.target}</a>'
     def render_footnote_ref(self, token): 
-        return f'<sup><a href="#fn-{token.label}" id="fnref-{token.label}">[{token.label}]</a></sup>'
+        lbl = token.label
+        return f'<sup><a href="#fn-{lbl}" id="fnref-{lbl}">[{lbl}]</a></sup>'
     def render_footnote_entry(self, token):
-        return f'<div id="fn-{token.label}" class="footnote"><sup>{token.label}</sup> {token.content} <a href="#fnref-{token.label}">↩</a></div>\n'
+        lbl = token.label
+        return f'<div id="fn-{lbl}" class="footnote"><sup>{lbl}</sup> {token.content} <a href="#fnref-{lbl}">↩</a></div>\n'
     def render_list_item(self, token):
         inner = self.render_inner(token)
         match = re.match(r'\[( |x|X)\] ', inner)
