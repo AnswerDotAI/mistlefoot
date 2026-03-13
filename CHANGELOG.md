@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.5
+
+### New Features
+
+- Add AttrLink and FencedDiv support with attributed links and fenced div blocks ([#5](https://github.com/AnswerDotAI/mistlefoot/issues/5))
+
+
 ## 0.0.4
 
 ### Bugs Squashed
