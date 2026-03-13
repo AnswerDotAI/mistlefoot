@@ -2,7 +2,7 @@
 
 # %% auto #0
 __all__ = ['emoji_map', 'Subscript', 'Superscript', 'Highlight', 'Emoji', 'FootnoteEntry', 'FootnoteRef', 'Strikethrough',
-           'AutoLink', 'ExtendedHtmlRenderer', 'parse_attrs']
+           'AutoLink', 'AttrLink', 'FencedDiv', 'ExtendedHtmlRenderer', 'parse_attrs']
 
 # %% ../nbs/00_core.ipynb #4be85a97
 from fastcore.utils import *
@@ -85,10 +85,39 @@ class AutoLink(SpanToken):
     precedence = 6
     def __init__(self, match): self.target = match.group(1)
 
+# %% ../nbs/00_core.ipynb #dd4b0566
+class AttrLink(SpanToken):
+    pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)\{([^}]+)\}')
+    parse_inner,precedence = False,4
+    def __init__(self, match): self.text, self.target, self.attr_str = match.group(1), match.group(2), match.group(3)
+
+# %% ../nbs/00_core.ipynb #c2898abb
+class FencedDiv(BlockToken):
+    @staticmethod
+    def start(line): return bool(re.match(r'^:{3,}\s*(\{|$)', line.strip()))
+
+    @staticmethod
+    def read(lines):
+        line = next(lines)
+        stripped = line.strip()
+        n = len(stripped) - len(stripped.lstrip(':'))
+        attr_str = stripped[n:].strip()
+        inner = []
+        for line in lines:
+            if re.match(f'^:{{{n},}}\\s*$', line.strip()): break
+            inner.append(line)
+        return n, attr_str, inner
+
+    def __init__(self, result):
+        n, attr_str, inner = result
+        self.attr_str = attr_str
+        self.children = Document('\n'.join(inner)).children if inner else []
+
 # %% ../nbs/00_core.ipynb #be9bbac9
 class ExtendedHtmlRenderer(HtmlRenderer):
-    def __init__(self, *args, **kwargs): 
-        super().__init__(Subscript, Superscript, Highlight, Emoji, FootnoteRef, FootnoteEntry, Strikethrough, AutoLink, *args, **kwargs)
+    def __init__(self, *args, **kw): 
+        super().__init__(FencedDiv, AttrLink, Subscript, Superscript, Highlight, Emoji, FootnoteRef,
+            FootnoteEntry, Strikethrough, AutoLink, *args, **kw)
         self.footnotes = {}
         ListItem.pattern = re.compile(r'( {0,3})(\d{1,9}[.)]|[+\-*])($|\s+)')
         List.pattern = re.compile(r' {0,3}(?:\d{1,9}[.)]|[+\-*])(?:[ \t]*$|[ \t]+)')
@@ -112,6 +141,12 @@ class ExtendedHtmlRenderer(HtmlRenderer):
         checkbox = f'<input type="checkbox" disabled {checked}>'
         content = inner[match.end():]
         return f'<li>{checkbox} {content}</li>\n'
+    def render_attr_link(self, token):
+        attrs = parse_attrs('{' + token.attr_str + '}')
+        return f'<a href="{token.target}"{attrs}>{token.text}</a>'
+    def render_fenced_div(self, token):
+        attrs = parse_attrs(token.attr_str) if token.attr_str else ''
+        return f'<div{attrs}>\n{self.render_inner(token)}</div>\n'
 
 # %% ../nbs/00_core.ipynb #5768db34
 def parse_attrs(text):
