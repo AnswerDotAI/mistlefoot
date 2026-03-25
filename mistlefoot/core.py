@@ -8,10 +8,14 @@ __all__ = ['emoji_map', 'Subscript', 'Superscript', 'Highlight', 'Emoji', 'Footn
 from fastcore.utils import *
 
 import re
+from threading import Lock
 from mistletoe import Document
 from mistletoe.html_renderer import HtmlRenderer
 from mistletoe.span_token import SpanToken
-from mistletoe.block_token import BlockToken, ListItem, List
+from mistletoe.block_token import BlockToken, ListItem, List, reset_tokens
+
+# %% ../nbs/00_core.ipynb #58d557b5
+_render_lock = Lock()
 
 # %% ../nbs/00_core.ipynb #0d4a8105
 class Subscript(SpanToken):
@@ -147,6 +151,21 @@ class ExtendedHtmlRenderer(HtmlRenderer):
     def render_fenced_div(self, token):
         attrs = parse_attrs(token.attr_str) if token.attr_str else ''
         return f'<div{attrs}>\n{self.render_inner(token)}</div>\n'
+
+    def __enter__(self):
+        _render_lock.acquire()
+        try:
+            reset_tokens()
+            return super().__enter__()
+        except:
+            _render_lock.release()
+            raise
+
+    def __exit__(self, *exc):
+        try: return super().__exit__(*exc)
+        finally:
+            reset_tokens()
+            _render_lock.release()
 
 # %% ../nbs/00_core.ipynb #5768db34
 def parse_attrs(text):
