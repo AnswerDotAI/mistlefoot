@@ -154,9 +154,7 @@ class ExtendedHtmlRenderer(HtmlRenderer):
 
     def __enter__(self):
         _render_lock.acquire()
-        try:
-            reset_tokens()
-            return super().__enter__()
+        try: return super().__enter__()
         except:
             _render_lock.release()
             raise
