@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.7
+
+### New Features
+
+- Add thread-safe locking to ExtendedHtmlRenderer via `__enter__`/`__exit__` with reset_tokens ([#6](https://github.com/AnswerDotAI/mistlefoot/issues/6))
+
+
 ## 0.0.5
 
 ### New Features
