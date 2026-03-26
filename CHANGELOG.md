@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.8
+
+### Bugs Squashed
+
+- Remove unwanted `reset_tokens` in `__enter__` ([#7](https://github.com/AnswerDotAI/mistlefoot/issues/7))
+
+
 ## 0.0.7
 
 ### New Features
