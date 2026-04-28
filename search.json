@@ -1,0 +1,82 @@
+[
+  {
+    "objectID": "00_core.html",
+    "href": "00_core.html",
+    "title": "My Heading",
+    "section": "",
+    "text": "from IPython.display import HTML,Markdown,display\nfrom mistletoe import markdown\nsource",
+    "crumbs": [
+      "Tests"
+    ]
+  },
+  {
+    "objectID": "00_core.html#tests",
+    "href": "00_core.html#tests",
+    "title": "My Heading",
+    "section": "Tests",
+    "text": "Tests\n\nfrom fastcore.test import test_eq\n\n\nrend = ExtendedHtmlRenderer().render\ndef test_render(a,b): return test_eq(rend(Document(a)), b)\ndef test_render_p(a,b): return test_render(a, f'&lt;p&gt;{b}&lt;/p&gt;\\n')\n\n\ntest_render_p(':sm ile:', ':sm ile:')\ntest_render_p('.', '.')\ntest_render_p(':unknown:', ':unknown:')\ntest_render_p(':smile:', '😊')\ntest_render_p('H~ 2~O', 'H~ 2~O')\ntest_render_p('H~2~O', 'H&lt;sub&gt;2&lt;/sub&gt;O')\ntest_render_p('E=mc^ 2^', 'E=mc^ 2^')\ntest_render_p('E=mc^2^', 'E=mc&lt;sup&gt;2&lt;/sup&gt;')\ntest_render_p('~~no space~~', '&lt;del&gt;no space&lt;/del&gt;')\ntest_render_p('**~~nested~~**', '&lt;strong&gt;&lt;del&gt;nested&lt;/del&gt;&lt;/strong&gt;')\ntest_render_p('==~~double~~==', '&lt;mark&gt;&lt;del&gt;double&lt;/del&gt;&lt;/mark&gt;')\nhtml = rend(Document('```\\nhttps://fast.ai\\n```'))\nassert 'href' not in html and 'https://fast.ai' in html\nhtml = rend(Document('https://fast.ai'))\nassert '&lt;a href=\"https://fast.ai\"&gt;https://fast.ai&lt;/a&gt;' in html\nhtml = rend(Document('[link](https://fast.ai)'))\nassert html.count('href') == 1\ntest_render_p('[^1]', '&lt;sup&gt;&lt;a href=\"#fn-1\" id=\"fnref-1\"&gt;[1]&lt;/a&gt;&lt;/sup&gt;')\nhtml = rend(Document('- [x] done\\n- [ ] todo\\n- regular'))\nassert 'checked' in html and html.count('checkbox') == 2\ntest_render_p('[link](http://example.com){target=\"_blank\"}', '&lt;a href=\"http://example.com\" target=\"_blank\"&gt;link&lt;/a&gt;')\ntest_render_p('[link](http://example.com){#my-id .cls}', '&lt;a href=\"http://example.com\" id=\"my-id\" class=\"cls\"&gt;link&lt;/a&gt;')\n\n\ntest_render('# Heading {#intro}', '&lt;h1 id=\"intro\"&gt;Heading&lt;/h1&gt;\\n')\ntest_render('## Test {.important}', '&lt;h2 class=\"important\"&gt;Test&lt;/h2&gt;\\n')\ntest_render('### Multi {.c1 .c2}', '&lt;h3 class=\"c1 c2\"&gt;Multi&lt;/h3&gt;\\n')\nhtml = rend(Document('# Full {#id1 .cls data-level=\"1\"}'))\nassert 'id=\"id1\"' in html and 'class=\"cls\"' in html and 'data-level=\"1\"' in html\ntest_render('# Plain', '&lt;h1&gt;Plain&lt;/h1&gt;\\n')\ntest_render('## Empty {}', '&lt;h2&gt;Empty {}&lt;/h2&gt;\\n')\nhtml = rend(Document('# Order {.first #myid .second key=\"val\"}'))\nassert 'id=\"myid\"' in html and 'class=\"first second\"' in html and 'key=\"val\"' in html\ntest_render('# Spaces {data-value=\"hello world\"}', '&lt;h1 data-value=\"hello world\"&gt;Spaces&lt;/h1&gt;\\n')\n\ntest_render('&lt;details&gt;\\n&lt;summary&gt;test&lt;/summary&gt;\\n\\n```json\\n{\"a\": 1}\\n```\\n&lt;/details&gt;',\n    '&lt;details&gt;\\n&lt;summary&gt;test&lt;/summary&gt;\\n&lt;pre&gt;&lt;code class=\"language-json\"&gt;{\"a\": 1}\\n&lt;/code&gt;&lt;/pre&gt;\\n&lt;/details&gt;\\n')\n\n\nhtml = rend(Document('::: {.callout-note}\\nHello **world**\\n:::'))\nassert '&lt;div class=\"callout-note\"&gt;' in html and '&lt;strong&gt;world&lt;/strong&gt;' in html\nhtml = rend(Document('::: {#box .a .b}\\nInner\\n:::'))\nassert 'id=\"box\"' in html and 'class=\"a b\"' in html and 'Inner' in html\nhtml = rend(Document(':::: {.columns}\\n::: {.column}\\nLeft\\n:::\\n::: {.column}\\nRight\\n:::\\n::::'))\nassert html.count('class=\"column\"') == 2 and 'class=\"columns\"' in html",
+    "crumbs": [
+      "Tests"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "mistlefoot",
+    "section": "",
+    "text": "pip install mistlefoot",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "mistlefoot",
+    "section": "",
+    "text": "pip install mistlefoot",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#features",
+    "href": "index.html#features",
+    "title": "mistlefoot",
+    "section": "Features",
+    "text": "Features\n\nSubscript & Superscript: H~2~O and E=mc^2^\nHighlighting: ==marked text==\nStrikethrough: ~~deleted text~~\nEmojis: :smile: :rocket: :heart: (50+ supported)\nAuto-linking: URLs automatically become clickable links\nFootnotes: Reference[^1] with definitions\nTask lists: GitHub-style checkboxes\nHeading attributes: Add IDs, classes, and custom attributes to headings",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "mistlefoot",
+    "section": "Usage",
+    "text": "Usage\n\nfrom IPython.display import HTML,Markdown,display\nfrom mistletoe import markdown\n\n\nmarkdown('**aa**', ExtendedHtmlRenderer)\n\n'&lt;p&gt;&lt;strong&gt;aa&lt;/strong&gt;&lt;/p&gt;\\n'\n\n\n\ndef render_md(md): return HTML(markdown(md, ExtendedHtmlRenderer))\ndef  print_md(md):       print(markdown(md, ExtendedHtmlRenderer))\n\n\nmarkdown_text = \"\"\"\n#### My Document {#intro .important}\n\nThis is **H~2~O** and ==highlighted text==.\n\nCheck out https://fast.ai :rocket:\n\n- [x] Done\n- [ ] Todo\n\"\"\"\n\nrender_md(markdown_text)\n\nMy Document\nThis is H2O and highlighted text.\nCheck out https://fast.ai 🚀\n\n Done\n\n Todo",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "mistlefoot",
+    "section": "Examples",
+    "text": "Examples\nScientific notation:\n\nrender_md(\"H~2~O and E=mc^2^\")\n\nH2O and E=mc2\n\n\nEmojis:\n\nrender_md(\"Great work! :tada: :100:\")\n\nGreat work! 🎉 💯\n\n\nFootnotes:\n\nrender_md(\"\"\"Here's a claim[^1].\n\n[^1]: This is the supporting reference.\"\"\")\n\nHere's a claim[1].\n1 This is the supporting reference. ↩\n\n\n\nHeading attributes:\n\nprint_md('#### Section {#my-id .important data-level=\\\"1\\\"}')\n\n&lt;h4 id=\"my-id\" class=\"important\" data-level=\"1\"&gt;Section&lt;/h4&gt;",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "mistlefoot",
+    "section": "Contributing",
+    "text": "Contributing\nBy Jeremy Howard. Copyright ©️ fast.ai 2026 onwards. Contributions welcome.",
+    "crumbs": [
+      "mistlefoot"
+    ]
+  }
+]
