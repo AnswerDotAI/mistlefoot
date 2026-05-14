@@ -2,17 +2,18 @@
 
 # %% auto #0
 __all__ = ['emoji_map', 'Subscript', 'Superscript', 'Highlight', 'Emoji', 'FootnoteEntry', 'FootnoteRef', 'Strikethrough',
-           'AutoLink', 'AttrLink', 'FencedDiv', 'ExtendedHtmlRenderer', 'parse_attrs']
+           'AutoLink', 'AttrLink', 'FencedDiv', 'TagExtractor', 'opening_tag', 'LenientHtmlBlock',
+           'ExtendedHtmlRenderer', 'parse_attrs']
 
 # %% ../nbs/00_core.ipynb #4be85a97
 from fastcore.utils import *
-
-import re
 from threading import Lock
-from mistletoe import Document
+from mistletoe import Document, span_token
 from mistletoe.html_renderer import HtmlRenderer
 from mistletoe.span_token import SpanToken
-from mistletoe.block_token import BlockToken, ListItem, List, reset_tokens
+from mistletoe.block_token import BlockToken, ListItem, List, reset_tokens, HTMLBlock
+
+from html.parser import HTMLParser
 
 # %% ../nbs/00_core.ipynb #58d557b5
 _render_lock = Lock()
@@ -117,14 +118,70 @@ class FencedDiv(BlockToken):
         self.attr_str = attr_str
         self.children = Document('\n'.join(inner)).children if inner else []
 
+# %% ../nbs/00_core.ipynb #fb853efb
+class TagExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.tag,self.attrs,self.self_closing = None,{},False
+    def handle_starttag(self, tag, attrs):
+        if self.tag is None: self.tag,self.attrs = tag,dict(attrs)
+    def handle_startendtag(self, tag, attrs):
+        if self.tag is None: self.tag,self.attrs,self.self_closing = tag,dict(attrs),True
+
+def opening_tag(line):
+    p = TagExtractor()
+    try: p.feed(line)
+    except: return None,{}
+    if p.self_closing: return None,{}
+    return p.tag,p.attrs
+
+
+# %% ../nbs/00_core.ipynb #fdb920dd
+class LenientHtmlBlock(HTMLBlock):
+    _extra_tags = {'svg'}
+    _md_inner = False
+
+    @classmethod
+    def start(cls, line):
+        if line[:1] in (' ', '\t'): return super().start(line)
+        tag,attrs = opening_tag(line)
+        if tag and tag in (span_token._tags | cls._extra_tags):
+            cls._end_cond = f'</{tag}>'
+            cls._md_inner = attrs.get('markdown') == '1'
+            return 99
+        return super().start(line)
+
+    @classmethod
+    def read(cls, lines):
+        if cls._end_cond is None or not cls._end_cond.startswith('</'): return super().read(lines)
+        buf,md = [],cls._md_inner
+        for line in lines:
+            buf.append(line)
+            if cls._end_cond in line.casefold(): break
+        if md: return ('md', buf[0], buf[1:-1], buf[-1] if len(buf)>1 else '')
+        return buf
+
+    def __init__(self, result):
+        if isinstance(result, tuple) and result and result[0] == 'md':
+            _,opener,inner,closer = result
+            self.md_inner,self.opener,self.closer = True,opener,closer
+            self.children = Document(inner).children if inner else []
+        else:
+            self.md_inner = False
+            super().__init__(result)
+
+
 # %% ../nbs/00_core.ipynb #be9bbac9
 class ExtendedHtmlRenderer(HtmlRenderer):
     def __init__(self, *args, **kw): 
-        super().__init__(FencedDiv, AttrLink, Subscript, Superscript, Highlight, Emoji, FootnoteRef,
-            FootnoteEntry, Strikethrough, AutoLink, *args, **kw)
+        super().__init__(LenientHtmlBlock, FencedDiv, AttrLink, Subscript, Superscript, Highlight, Emoji,
+            FootnoteRef, FootnoteEntry, Strikethrough, AutoLink, *args, **kw)
         self.footnotes = {}
         ListItem.pattern = re.compile(r'( {0,3})(\d{1,9}[.)]|[+\-*])($|\s+)')
         List.pattern = re.compile(r' {0,3}(?:\d{1,9}[.)]|[+\-*])(?:[ \t]*$|[ \t]+)')
+    def render_lenient_html_block(self, token):
+        if not getattr(token, 'md_inner', False): return self.render_html_block(token)
+        return f'{token.opener}{self.render_inner(token)}{token.closer}'
     def render_subscript(self, token): return f'<sub>{token.content}</sub>'
     def render_superscript(self, token): return f'<sup>{token.content}</sup>'
     def render_highlight(self, token): return f'<mark>{self.render_inner(token)}</mark>'
