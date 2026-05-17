@@ -144,6 +144,7 @@ class LenientHtmlBlock(HTMLBlock):
     @classmethod
     def start(cls, line):
         if line[:1] in (' ', '\t'): return super().start(line)
+        if not line.startswith('<'): return super().start(line)
         tag,attrs = opening_tag(line)
         if tag and tag in (span_token._tags | cls._extra_tags):
             cls._end_cond = f'</{tag}>'
@@ -169,7 +170,6 @@ class LenientHtmlBlock(HTMLBlock):
         else:
             self.md_inner = False
             super().__init__(result)
-
 
 # %% ../nbs/00_core.ipynb #be9bbac9
 class ExtendedHtmlRenderer(HtmlRenderer):
