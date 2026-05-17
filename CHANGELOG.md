@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.10
+
+### New Features
+
+- Add LenientHtmlBlock for svg/html blocks with blank lines and/or indented children; and markdown="1" inner parsing ([#8](https://github.com/AnswerDotAI/mistlefoot/issues/8))
+
+
 ## 0.0.8
 
 ### Bugs Squashed
