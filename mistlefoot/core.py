@@ -165,8 +165,8 @@ class LenientHtmlBlock(HTMLBlock):
         buf,md,fence = [],cls._md_inner,None
         for line in lines:
             buf.append(line)
-            fence = _fence_state(line, fence)
-            if fence is None and cls._end_cond in line.casefold(): break
+            if md: fence = _fence_state(line, fence)
+            if (not md or fence is None) and cls._end_cond in line.casefold(): break
         if md: return ('md', buf[0], buf[1:-1], buf[-1] if len(buf)>1 else '')
         return buf
 
