@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.11
+
+### Bugs Squashed
+
+- Fix premature HTML block termination inside fenced code blocks ([#10](https://github.com/AnswerDotAI/mistlefoot/pull/10)), thanks to [@ncoop57](https://github.com/ncoop57)
+
+
 ## 0.0.10
 
 ### New Features
