@@ -138,12 +138,13 @@ def opening_tag(line):
 
 # %% ../nbs/00_core.ipynb #fdb920dd
 def _fence_state(line, fence=None):
-    m = re.match(r'^\s*(`{3,5}|~{3,5})', line)
+    m = re.match(r'^\s*(`{3,5})', line)
     if not m: return fence
     s = m.group(1)
-    if fence: return None if s[0] == fence[0] and len(s) >= len(fence) else fence
+    if fence: return None if len(s)>=len(fence) else fence
     return s
 
+# %% ../nbs/00_core.ipynb #f068dafe
 class LenientHtmlBlock(HTMLBlock):
     _extra_tags = {'svg'}
     _md_inner = False
