@@ -137,6 +137,13 @@ def opening_tag(line):
 
 
 # %% ../nbs/00_core.ipynb #fdb920dd
+def _fence_state(line, fence=None):
+    m = re.match(r'^\s*(`{3,5}|~{3,5})', line)
+    if not m: return fence
+    s = m.group(1)
+    if fence: return None if s[0] == fence[0] and len(s) >= len(fence) else fence
+    return s
+
 class LenientHtmlBlock(HTMLBlock):
     _extra_tags = {'svg'}
     _md_inner = False
@@ -155,10 +162,11 @@ class LenientHtmlBlock(HTMLBlock):
     @classmethod
     def read(cls, lines):
         if cls._end_cond is None or not cls._end_cond.startswith('</'): return super().read(lines)
-        buf,md = [],cls._md_inner
+        buf,md,fence = [],cls._md_inner,None
         for line in lines:
             buf.append(line)
-            if cls._end_cond in line.casefold(): break
+            fence = _fence_state(line, fence)
+            if fence is None and cls._end_cond in line.casefold(): break
         if md: return ('md', buf[0], buf[1:-1], buf[-1] if len(buf)>1 else '')
         return buf
 

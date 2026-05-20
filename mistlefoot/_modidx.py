@@ -72,5 +72,6 @@ d = { 'settings': { 'branch': 'main',
                                                                                       'mistlefoot/core.py'),
                                  'mistlefoot.core.TagExtractor.handle_starttag': ( 'core.html#tagextractor.handle_starttag',
                                                                                    'mistlefoot/core.py'),
+                                 'mistlefoot.core._fence_state': ('core.html#_fence_state', 'mistlefoot/core.py'),
                                  'mistlefoot.core.opening_tag': ('core.html#opening_tag', 'mistlefoot/core.py'),
                                  'mistlefoot.core.parse_attrs': ('core.html#parse_attrs', 'mistlefoot/core.py')}}}
