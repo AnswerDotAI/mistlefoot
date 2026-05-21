@@ -8,12 +8,19 @@ __all__ = ['emoji_map', 'Subscript', 'Superscript', 'Highlight', 'Emoji', 'Footn
 # %% ../nbs/00_core.ipynb #4be85a97
 from fastcore.utils import *
 from threading import Lock
-from mistletoe import Document, span_token
+from mistletoe import Document, span_token, token
 from mistletoe.html_renderer import HtmlRenderer
 from mistletoe.span_token import SpanToken
-from mistletoe.block_token import BlockToken, ListItem, List, reset_tokens, HTMLBlock
+from mistletoe.block_token import BlockToken, ListItem, List, reset_tokens, HTMLBlock, tokenize
 
 from html.parser import HTMLParser
+
+# %% ../nbs/00_core.ipynb #aeaeb8d5
+@patch
+def __init__(self:Document, lines):
+    old = getattr(token, '_root_node', None)
+    try: self._orig___init__(lines)
+    finally: token._root_node = old
 
 # %% ../nbs/00_core.ipynb #58d557b5
 _render_lock = Lock()
