@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.13
+
+### Bugs Squashed
+
+- Make `Document.__init__` re-entrant by saving/restoring `token._root_node` ([#11](https://github.com/AnswerDotAI/mistlefoot/issues/11))
+
+
 ## 0.0.11
 
 ### Bugs Squashed
