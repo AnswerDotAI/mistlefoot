@@ -18,8 +18,7 @@ pip install mistlefoot
 - **Auto-linking**: URLs automatically become clickable links
 - **Footnotes**: `Reference[^1]` with definitions
 - **Task lists**: GitHub-style checkboxes
-- **Heading attributes**: Add IDs, classes, and custom attributes to
-  headings
+- **Heading attributes**: Add IDs, classes, and custom attributes to headings
 
 ## Usage
 
@@ -101,5 +100,4 @@ print_md('#### Section {#my-id .important data-level=\"1\"}')
 
 ## Contributing
 
-By Jeremy Howard. Copyright ©️ fast.ai 2026 onwards. Contributions
-welcome.
+By Jeremy Howard. Copyright ©️ fast.ai 2026 onwards. Contributions welcome.
